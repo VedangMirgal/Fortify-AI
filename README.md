@@ -1,8 +1,8 @@
 # FortifyAI – Multi-Agent Resilience & Security Advisor
 
-FortifyAI is a **multi-agent AI system** that analyzes a software architecture (defined in YAML), simulates failure scenarios, detects security risks, and generates actionable remediation plans along with an AI-powered executive summary.
+FortifyAI is a **multi-agent AI system** that analyzes a software architecture (defined in YAML), simulates **failure scenarios**, detects **security risks**, and generates **actionable remediation plans** along with an **AI-powered executive summary**.
 
-It is designed as a realistic **SRE + Security Copilot** for system architects and cloud engineers.
+It is designed as a realistic **SRE + Security Copilot** for system architects, DevOps engineers, and cloud engineers.
 
 ---
 
@@ -10,33 +10,13 @@ It is designed as a realistic **SRE + Security Copilot** for system architects a
 
 FortifyAI provides:
 
-- 🔍 Failure impact simulation across system components  
-- 🛡️ Automated security risk detection  
-- 📈 System resilience scoring  
-- 🤖 AI-powered executive insights (Gemini-enhanced)  
-- 📊 Visual architecture dependency graphs  
-- 🧾 PDF, JSON and Markdown reports  
-- ⚙️ Multi-agent orchestration with traceable run context
-
----
-
-## 🖥️ Application Preview
-
-### Dark Mode
-![Dark Mode - Before Upload](docs/screenshots/dark_mode_before_file_upload.png)
-![Dark Mode - After Upload](docs/screenshots/dark_mode_after_file_upload.png)
-![Dark AI Summary](docs/screenshots/dark_ai_insights_summary1.png)
-![Dark Failure Scenarios](docs/screenshots/dark_failure_scenarios.png)
-![Dark Recommendations](docs/screenshots/dark_recommendation_suggestions.png)
-
-### Light Mode
-![Light Mode Overview](docs/screenshots/light_page_after_file_upload.png)
-![Light AI Summary](docs/screenshots/light_ai_insights_summary1.png)
-![Light Failure Scenarios](docs/screenshots/light_failure_scenarios.png)
-![Light Recommendations](docs/screenshots/light_recommendation_suggestions.png)
-
-➡️ View all screenshots here:  
-`docs/screenshots/`
+* 🔁 Failure impact simulation across system components
+* 🔐 Automated security risk detection
+* 📉 Resilience scoring & worst-case severity analysis
+* 🧠 AI-powered executive summaries (Gemini-enhanced)
+* 📊 Visual architecture graphs
+* 📄 PDF & Markdown reports
+* 🗂 Per-run artefacts with full traceability
 
 ---
 
@@ -44,108 +24,209 @@ FortifyAI provides:
 
 Given an architecture YAML file, FortifyAI will:
 
-### ✅ Failure Simulation
-- Simulate single-component failure
-- Propagate effects through dependency chains
-- Calculate:
-  - Severity (0–10)
-  - User-visible impact
-  - Impacted components
+* Build a **dependency graph** of your system
+* Simulate **single-component failures** and propagate impact
+* Compute for each scenario:
 
-### ✅ Security Analysis
-- Detect risks such as:
-  - DoS vulnerability on public services
-  - External dependency exposure
-- Assign severity levels: HIGH / MEDIUM / LOW
+  * Severity (0–10)
+  * Whether the failure is user-visible
+  * All impacted components
+* Run heuristic security checks:
 
-### ✅ Reporting & Insights
-- Generate:
-  - System Report (JSON)
-  - PDF Report
-  - AI Insight Summary
-  - Remediation Plan
+  * DoS risk for public-facing services
+  * External dependency risk for third-party integrations
+* Generate:
+
+  * Structured system report
+  * Prioritized remediation plan
+  * AI insight summary (Gemini-powered if configured)
 
 ---
 
 ## 🧠 Multi-Agent Architecture
 
-### 1. Orchestrator Agent
-Coordinates the entire pipeline and assigns run IDs.
+### Input
 
-### 2. Failure Simulation Agent
-Simulates component-level failures and downstream impact.
+A YAML file defining:
 
-### 3. Security Analysis Agent
-Scans for architecture-level security issues.
+* Components
+* Types
+* Dependencies
+* Criticality
+* Public exposure
 
-### 4. Reporting Agent
-Generates structured reports and visual graph outputs.
+### Core Agents
 
-### 5. Remediation Agent
-Proposes prioritized fixes based on risk.
+#### 1. Orchestrator Agent
 
-### 6. AI Summary Agent
-Creates a readable executive summary using:
-- ✅ Gemini 2.5 Flash Lite (if API key present)
-- ✅ Heuristic engine fallback (offline mode)
+Coordinates the entire workflow and:
+
+* Assigns a sequential run ID (`runs/run_001`, `runs/run_002`, ...)
+* Invokes all other agents
+* Aggregates outputs
+* Logs execution state in `agent_context.json`
+
+#### 2. Failure Simulation Agent
+
+* Simulates failure of each component
+* Propagates impact across dependency graph
+* Calculates:
+
+  * Severity
+  * User visibility
+  * Impacted components
+
+#### 3. Security Analysis Agent
+
+* Analyzes metadata such as `type`, `public`, `external_api`
+* Flags:
+
+  * Denial-of-Service risk
+  * External dependency vulnerabilities
+
+#### 4. Reporting Agent
+
+Generates:
+
+* `report.json`
+* `report.md`
+* `report.pdf`
+* `architecture_graph.png`
+
+Includes:
+
+* Resilience score
+* Worst-case severity
+* Failure scenarios
+* Security risks
+
+#### 5. Remediation Agent
+
+Suggests actions with:
+
+* Category (resilience, security, architecture)
+* Target component
+* Priority (high / medium / low)
+* Description and implementation guidance
+
+Enhanced when Gemini is enabled.
+
+#### 6. AI Summary Agent
+
+* Converts technical output into an executive summary
+* Uses **Gemini 2.5 Flash Lite** when API key is present
+* Falls back to heuristic summaries when unavailable
+* UI clearly displays source (Gemini / Heuristic)
 
 ---
 
-## 📦 Per-Run Output Structure
+## 📁 Per-Run Artefacts
 
-Each analysis run generates:
+Each run produces:
 
-```text
-runs/
-└─ run_003/
-   ├─ architecture.yaml
-   ├─ report.json
-   ├─ report.md
-   ├─ report.pdf
-   ├─ architecture_graph.png
-   ├─ remediation.json
-   ├─ remediation.txt
-   ├─ ai_summary.txt
-   └─ agent_context.json
+```
+runs/run_003/
+├─ architecture.yaml
+├─ report.json
+├─ report.md
+├─ report.pdf
+├─ architecture_graph.png
+├─ remediation.json
+├─ remediation.txt
+├─ ai_summary.txt
+└─ agent_context.json
 ```
 
-These folders are auto-generated and ignored by Git.
+> These folders are auto-generated and excluded from Git.
+
+---
+
+## 🖼 UI Screenshots
+
+All screenshots are stored in:
+
+```
+docs/screenshots/
+```
+
+### 🌙 Dark Mode
+
+![Dark Dashboard](docs/screenshots/dark_mode_after_file_upload.png)
+![Dark AI Summary](docs/screenshots/dark_ai_insights_summary1.png)
+![Dark Failure Scenarios](docs/screenshots/dark_failure_scenarios.png)
+![Dark Recommendations](docs/screenshots/dark_recommendation_suggestions.png)
+
+### ☀️ Light Mode
+
+![Light Dashboard](docs/screenshots/light_page_after_file_upload.png)
+![Light AI Summary](docs/screenshots/light_ai_insights_summary1.png)
+![Light Failure Scenarios](docs/screenshots/light_failure_scenarios.png)
+![Light Recommendations](docs/screenshots/light_recommendation_suggestions.png)
+
+> Full screenshots available in the `docs/screenshots/` folder.
 
 ---
 
 ## 🧰 Tech Stack
 
 ### Backend
-- Python 3.12
-- FastAPI
-- Uvicorn
-- Graphviz
-- ReportLab
-- Gemini API (google-generativeai)
-- python-dotenv
+
+* Python 3.12+
+* FastAPI
+* Uvicorn
+* Graphviz
+* ReportLab
+* python-dotenv
+* google-generativeai (Gemini 2.5 Flash Lite)
 
 ### Frontend
-- React (Vite)
-- Pure CSS
-- Light/Dark Mode UI
-- Responsive futuristic design
+
+* React (Vite)
+* Custom CSS (no UI framework)
+* Light/Dark mode
+* Responsive design
 
 ---
 
-## ⚙️ Setup Instructions
+## 📂 Project Structure
+
+```
+Fortify-AI/
+├─ api.py
+├─ main.py
+├─ architecture_model.py
+├─ orchestrator.py
+├─ failure_simulation.py
+├─ security_analysis.py
+├─ remediation_agent.py
+├─ ai_summary_agent.py
+├─ llm_client.py
+├─ agent_context.py
+├─ report_storage.py
+├─ report_generator.py
+├─ graph_utils.py
+├─ run_utils.py
+├─ requirements.txt
+├─ example_architecture.yaml
+├─ frontend/
+└─ runs/
+```
+
+---
+
+## ⚙️ Setup
 
 ### Backend
 
 ```bash
-python -m venv venv
-venv\Scripts\activate
 pip install -r requirements.txt
 uvicorn api:app --reload
 ```
 
-Access backend at:
+Optional Gemini setup:
+
 ```
-http://127.0.0.1:8000
+GEMINI_API_KEY=your_key_here
 ```
 
 ### Frontend
@@ -156,73 +237,27 @@ npm install
 npm run dev
 ```
 
-Access UI at:
-```
-http://127.0.0.1:5173
-```
-
 ---
 
-## 🔐 Gemini Setup (Optional)
+## 🎓 Academic Context
 
-Create a `.env` file:
+This project was developed as an academic capstone to demonstrate:
 
-```
-GEMINI_API_KEY=your_api_key_here
-```
+* Agentic AI system design
+* Hybrid reasoning (deterministic + LLM)
+* Resilience engineering simulations
 
-Without the key, the system still works using heuristic summaries.
-
----
-
-## 📄 Sample YAML Input
-
-```yaml
-system_name: "Sample E-commerce Platform"
-components:
-  - name: Web Frontend
-    type: web_client
-    public: true
-    criticality: medium
-    depends_on: [API Gateway]
-
-  - name: API Gateway
-    type: gateway
-    public: true
-    criticality: high
-    depends_on: [Auth Service, Order Service]
-```
-
----
-
-## 🧪 Utility Script
-
-`cleanup_empty_runs.py`  
-Removes incomplete run folders during testing.
-
----
-
-## 📚 Project Context
-
-FortifyAI was developed as an academic and learning-focused capstone demonstrating:
-
-- Agentic AI design
-- Hybrid intelligence (LLM + logic)
-- Risk modeling & system resilience analysis
-
-Attribution is appreciated but not required.
+You may reference this work if using it in your own research or coursework.
 
 ---
 
 ## 📜 License
 
-This project is licensed under the **MIT License**  
-See `LICENSE` for details.
+MIT License – see the LICENSE file for details.
 
 ---
 
-## 👤 Author
+## 🧹 Utility Script
 
-Vedang Mirgal  
-AI & Systems Engineering Enthusiast  
-2025
+`cleanup_empty_runs.py`
+Removes incomplete or empty run folders from the `runs/` directory during development testing.
