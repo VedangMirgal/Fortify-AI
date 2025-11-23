@@ -2,7 +2,8 @@ import { useState } from "react";
 import "./App.css";
 
 // frontend/src/App.jsx
-const API_BASE = "https://fortify-ai.onrender.com";
+const API_BASE =import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
+
 const IS_LOCAL =API_BASE.includes("localhost") || API_BASE.includes("127.0.0.1");
 
 
