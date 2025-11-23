@@ -1,0 +1,49 @@
+system_name: "Sample E-commerce Platform"
+components:
+  - name: Web Frontend
+    type: web_client
+    public: true
+    criticality: medium
+    depends_on: [API Gateway]
+
+  - name: API Gateway
+    type: gateway
+    public: true
+    criticality: high
+    depends_on: [Auth Service, Order Service]
+
+  - name: Auth Service
+    type: service
+    public: false
+    criticality: medium
+    depends_on: [User DB]
+
+  - name: Order Service
+    type: service
+    public: false
+    criticality: high
+    depends_on: [Orders DB, Payment Service, Message Queue]
+
+  - name: Payment Service
+    type: external_api
+    public: false
+    criticality: high
+    depends_on: []
+
+  - name: User DB
+    type: database
+    public: false
+    criticality: high
+    depends_on: []
+
+  - name: Orders DB
+    type: database
+    public: false
+    criticality: high
+    depends_on: []
+
+  - name: Message Queue
+    type: queue
+    public: false
+    criticality: medium
+    depends_on: []

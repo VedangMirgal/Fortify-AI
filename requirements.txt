@@ -1,0 +1,14 @@
+pyyaml
+fastapi
+uvicorn[standard]
+python-dotenv
+google-generativeai
+
+graphviz
+reportlab
+
+# optional but likely used / safe
+networkx
+
+# If you ever used them explicitly, keep:
+# pydantic
