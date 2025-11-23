@@ -19,6 +19,10 @@ from run_utils import get_next_run_id
 
 app = FastAPI(title="System Resilience & Security Agent API")
 
+@app.get("/healthz")
+async def healthz():
+    return {"status": "ok"}
+
 # Allow Vite dev server to call this API
 origins = [
     "http://localhost:5173",
