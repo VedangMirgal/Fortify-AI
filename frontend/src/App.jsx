@@ -2,8 +2,9 @@ import { useState } from "react";
 import "./App.css";
 
 // frontend/src/App.jsx
-const API_BASE =
-  import.meta.env.VITE_API_BASE || "http://127.0.0.1:8000";
+const API_BASE = "https://fortify-ai.onrender.com";
+const IS_LOCAL =API_BASE.includes("localhost") || API_BASE.includes("127.0.0.1");
+
 
 function App() {
   const [theme, setTheme] = useState("dark");
@@ -160,15 +161,23 @@ function App() {
             >
               Download PDF Report
             </a>
-            <a
-              href={graphUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="btn-ghost"
-            >
-              View Architecture Graph
-            </a>
+
+            {IS_LOCAL ? (
+              <a
+                href={graphUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-ghost"
+              >
+                View Architecture Graph
+              </a>
+            ) : (
+              <span className="btn-ghost disabled-hint">
+                Architecture graph available in local setup
+              </span>
+            )}
           </div>
+
         </div>
 
         <div className="card surface">
