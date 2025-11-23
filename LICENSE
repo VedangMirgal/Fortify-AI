@@ -19,3 +19,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+## Academic Use
+
+This project was developed as part of an academic capstone to explore agent-based AI systems for system resilience and security analysis.
+
+If you use or build upon this project for learning, research, or personal work, a reference to this repository would be appreciated.
+
+Author: Vedang Mirgal  
+Project: FortifyAI – Multi-Agent Resilience & Security Advisor  
+License: MIT
