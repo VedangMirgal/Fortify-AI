@@ -6,6 +6,15 @@ It is designed as a realistic **SRE + Security Copilot** for system architects, 
 
 ---
 
+## 🌐 Live Deployment
+
+**Frontend (UI):** [https://fortify-ai-1.onrender.com](https://fortify-ai-1.onrender.com)
+**Backend API (FastAPI Docs):** [https://fortify-ai.onrender.com/docs](https://fortify-ai.onrender.com/docs)
+
+> Note: Architecture graph viewing is fully supported in local mode. In production, graph generation works but file persistence constraints on free hosting plans may limit public access across sessions.
+
+---
+
 ## 🚀 Key Capabilities
 
 FortifyAI provides:
@@ -17,6 +26,7 @@ FortifyAI provides:
 * 📊 Visual architecture graphs
 * 📄 PDF & Markdown reports
 * 🗂 Per-run artefacts with full traceability
+* ⚙️ Deterministic + LLM hybrid reasoning architecture
 
 ---
 
@@ -122,7 +132,7 @@ Enhanced when Gemini is enabled.
 
 ## 📁 Per-Run Artefacts
 
-Each run produces:
+Each analysis run produces:
 
 ```
 runs/run_003/
@@ -137,13 +147,13 @@ runs/run_003/
 └─ agent_context.json
 ```
 
-> These folders are auto-generated and excluded from Git.
+> These folders are auto-generated and excluded from Git to keep the repository clean.
 
 ---
 
 ## 🖼 UI Screenshots
 
-All screenshots are stored in:
+All screenshots are available at:
 
 ```
 docs/screenshots/
@@ -163,8 +173,6 @@ docs/screenshots/
 ![Light Failure Scenarios](docs/screenshots/light_failure_scenarios.png)
 ![Light Recommendations](docs/screenshots/light_recommendation_suggestions.png)
 
-> Full screenshots available in the `docs/screenshots/` folder.
-
 ---
 
 ## 🧰 Tech Stack
@@ -183,8 +191,12 @@ docs/screenshots/
 
 * React (Vite)
 * Custom CSS (no UI framework)
-* Light/Dark mode
+* Light/Dark mode toggle
 * Responsive design
+
+Deployment Platform:
+
+* Render (Frontend + Backend services)
 
 ---
 
@@ -208,13 +220,14 @@ Fortify-AI/
 ├─ run_utils.py
 ├─ requirements.txt
 ├─ example_architecture.yaml
+├─ cleanup_empty_runs.py
 ├─ frontend/
-└─ runs/
+└─ runs/ (auto-generated)
 ```
 
 ---
 
-## ⚙️ Setup
+## ⚙️ Setup Instructions
 
 ### Backend
 
@@ -225,8 +238,8 @@ uvicorn api:app --reload
 
 Optional Gemini setup:
 
-```
-GEMINI_API_KEY=your_key_here
+```bash
+GEMINI_API_KEY=your_api_key_here
 ```
 
 ### Frontend
@@ -239,15 +252,35 @@ npm run dev
 
 ---
 
+## 🔐 Security Notes
+
+* No secrets or API keys are stored in the repository.
+* Environment variables are used for sensitive credentials.
+* All analysis is stateless and file-based.
+
+---
+
 ## 🎓 Academic Context
 
-This project was developed as an academic capstone to demonstrate:
+This project was developed as part of an academic AI agents capstone to demonstrate:
 
-* Agentic AI system design
+* Multi-agent system orchestration
 * Hybrid reasoning (deterministic + LLM)
 * Resilience engineering simulations
+* AI-powered decision support systems
 
-You may reference this work if using it in your own research or coursework.
+Suitable for:
+
+* SRE / DevOps tooling demonstrations
+* Cloud resilience research
+* Agent-based system architecture studies
+
+---
+
+## 🧹 Utility Script
+
+`cleanup_empty_runs.py`
+Removes incomplete or empty run folders from the `runs/` directory during development testing.
 
 ---
 
@@ -257,7 +290,12 @@ MIT License – see the LICENSE file for details.
 
 ---
 
-## 🧹 Utility Script
+## ✅ Project Status
 
-`cleanup_empty_runs.py`
-Removes incomplete or empty run folders from the `runs/` directory during development testing.
+* ✅ Fully functional multi-agent backend
+* ✅ Deployed live frontend & backend
+* ✅ Gemini AI integration
+* ✅ Clean structured outputs
+* ✅ Production-grade architecture
+
+FortifyAI is ready for academic submission, demonstration, and further extension.
