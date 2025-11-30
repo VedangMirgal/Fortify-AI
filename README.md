@@ -162,17 +162,16 @@ docs/screenshots/
 ### 🌙 Dark Mode
 
 ![Dark Dashboard](docs/screenshots/dark_mode_after_file_upload.png)
-![Dark AI Summary](docs/screenshots/dark_ai_insights_summary1.png)
 ![Dark Failure Scenarios](docs/screenshots/dark_failure_scenarios.png)
 ![Dark Recommendations](docs/screenshots/dark_recommendation_suggestions.png)
+![Dark AI Summary](docs/screenshots/dark_ai_insights_summary1.png)
 
 ### ☀️ Light Mode
 
 ![Light Dashboard](docs/screenshots/light_page_after_file_upload.png)
-![Light AI Summary](docs/screenshots/light_ai_insights_summary1.png)
 ![Light Failure Scenarios](docs/screenshots/light_failure_scenarios.png)
 ![Light Recommendations](docs/screenshots/light_recommendation_suggestions.png)
-
+![Light AI Summary](docs/screenshots/light_ai_insights_summary1.png)
 ---
 
 ## 🧰 Tech Stack
