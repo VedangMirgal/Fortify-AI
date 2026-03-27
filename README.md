@@ -10,6 +10,7 @@ It is designed as a realistic **SRE + Security Copilot** for system architects, 
 
 **Frontend (UI):** [https://fortify-ai-1.onrender.com](https://fortify-ai-1.onrender.com)
 **Backend API (FastAPI Docs):** [https://fortify-ai.onrender.com/docs](https://fortify-ai.onrender.com/docs)
+🎥 **Project Demo:** [Watch on YouTube](https://youtu.be/bVp6LbKr4p4)
 
 > Note: Architecture graph viewing is fully supported in local mode. In production, graph generation works but file persistence constraints on free hosting plans may limit public access across sessions.
 
