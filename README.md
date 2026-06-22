@@ -1,18 +1,20 @@
-# FortifyAI – Multi-Agent Resilience & Security Advisor
+# FortifyAI – Architecture Resilience & Security Analysis Platform
 
-FortifyAI is a **multi-agent AI system** that analyzes a software architecture (defined in YAML), simulates **failure scenarios**, detects **security risks**, and generates **actionable remediation plans** along with an **AI-powered executive summary**.
+FortifyAI is an AI-assisted architecture analysis platform that evaluates software systems defined in YAML, simulates failure scenarios, identifies security risks, generates remediation recommendations, and produces executive-level summaries.
 
-It is designed as a realistic **SRE + Security Copilot** for system architects, DevOps engineers, and cloud engineers.
+The platform combines graph-based failure propagation analysis, rule-driven security assessment, and Gemini-powered reporting to help architects, DevOps engineers, and platform teams understand the resilience and security posture of their systems.
 
 ---
 
 ## 🌐 Live Deployment
 
-**Frontend (UI):** [https://fortify-ai-1.onrender.com](https://fortify-ai-1.onrender.com)
-**Backend API (FastAPI Docs):** [https://fortify-ai.onrender.com/docs](https://fortify-ai.onrender.com/docs)
-🎥 **Project Demo:** [Watch on YouTube](https://youtu.be/bVp6LbKr4p4)
+**Frontend (UI):** https://fortify-ai-1.onrender.com
 
-> Note: Architecture graph viewing is fully supported in local mode. In production, graph generation works but file persistence constraints on free hosting plans may limit public access across sessions.
+**Backend API:** https://fortify-ai.onrender.com/docs
+
+🎥 **Project Demo:** https://youtu.be/bVp6LbKr4p4
+
+> Note: Architecture graph generation is fully supported locally. On free hosting platforms, file persistence limitations may affect long-term access to generated artifacts.
 
 ---
 
@@ -20,122 +22,202 @@ It is designed as a realistic **SRE + Security Copilot** for system architects, 
 
 FortifyAI provides:
 
-* 🔁 Failure impact simulation across system components
-* 🔐 Automated security risk detection
-* 📉 Resilience scoring & worst-case severity analysis
-* 🧠 AI-powered executive summaries (Gemini-enhanced)
-* 📊 Visual architecture graphs
-* 📄 PDF & Markdown reports
-* 🗂 Per-run artefacts with full traceability
-* ⚙️ Deterministic + LLM hybrid reasoning architecture
+* Dependency graph construction from architecture specifications
+* Failure impact simulation and propagation analysis
+* Automated security risk assessment
+* Resilience scoring and severity analysis
+* AI-powered executive summaries
+* Architecture visualization
+* PDF and Markdown report generation
+* Per-run artifact storage and traceability
+* Hybrid deterministic + LLM-assisted reasoning
 
 ---
 
 ## 🔍 What FortifyAI Does
 
-Given an architecture YAML file, FortifyAI will:
+Given a system architecture YAML file, FortifyAI:
 
-* Build a **dependency graph** of your system
-* Simulate **single-component failures** and propagate impact
-* Compute for each scenario:
+1. Parses architecture components and dependencies.
+2. Builds forward and reverse dependency graphs.
+3. Simulates component failures and propagates impact.
+4. Computes:
 
-  * Severity (0–10)
-  * Whether the failure is user-visible
-  * All impacted components
-* Run heuristic security checks:
+   * Impacted components
+   * User visibility
+   * Failure severity
+5. Performs rule-based security analysis.
+6. Generates:
 
-  * DoS risk for public-facing services
-  * External dependency risk for third-party integrations
-* Generate:
-
-  * Structured system report
-  * Prioritized remediation plan
-  * AI insight summary (Gemini-powered if configured)
+   * Structured reports
+   * Remediation recommendations
+   * Architecture visualizations
+   * Executive summaries
 
 ---
 
-## 🧠 Multi-Agent Architecture
+## 🏗 System Architecture
 
 ### Input
 
-A YAML file defining:
+FortifyAI accepts architecture definitions in YAML format.
+
+Example information includes:
 
 * Components
-* Types
+* Component types
 * Dependencies
 * Criticality
 * Public exposure
-
-### Core Agents
-
-#### 1. Orchestrator Agent
-
-Coordinates the entire workflow and:
-
-* Assigns a sequential run ID (`runs/run_001`, `runs/run_002`, ...)
-* Invokes all other agents
-* Aggregates outputs
-* Logs execution state in `agent_context.json`
-
-#### 2. Failure Simulation Agent
-
-* Simulates failure of each component
-* Propagates impact across dependency graph
-* Calculates:
-
-  * Severity
-  * User visibility
-  * Impacted components
-
-#### 3. Security Analysis Agent
-
-* Analyzes metadata such as `type`, `public`, `external_api`
-* Flags:
-
-  * Denial-of-Service risk
-  * External dependency vulnerabilities
-
-#### 4. Reporting Agent
-
-Generates:
-
-* `report.json`
-* `report.md`
-* `report.pdf`
-* `architecture_graph.png`
-
-Includes:
-
-* Resilience score
-* Worst-case severity
-* Failure scenarios
-* Security risks
-
-#### 5. Remediation Agent
-
-Suggests actions with:
-
-* Category (resilience, security, architecture)
-* Target component
-* Priority (high / medium / low)
-* Description and implementation guidance
-
-Enhanced when Gemini is enabled.
-
-#### 6. AI Summary Agent
-
-* Converts technical output into an executive summary
-* Uses **Gemini 2.5 Flash Lite** when API key is present
-* Falls back to heuristic summaries when unavailable
-* UI clearly displays source (Gemini / Heuristic)
+* External integrations
 
 ---
 
-## 📁 Per-Run Artefacts
+## ⚙ Core Analysis Pipeline
+
+### 1. Architecture Parsing
+
+The uploaded YAML is converted into an internal architecture model containing:
+
+* Components
+* Metadata
+* Dependency relationships
+
+From this representation, FortifyAI constructs:
+
+* Forward dependency graphs
+* Reverse dependency graphs
+
+These graphs serve as the foundation for resilience analysis.
+
+---
+
+### 2. Failure Simulation Engine
+
+The failure simulation engine evaluates:
+
+> What happens if a given component becomes unavailable?
+
+For every component:
+
+* Failure is simulated
+* Impact propagates through the reverse dependency graph
+* Impacted services are identified
+
+The system uses graph traversal techniques to determine:
+
+* Direct failures
+* Cascading failures
+* User-visible failures
+
+Metrics generated include:
+
+* Severity score
+* Impacted components
+* Visibility assessment
+
+---
+
+### 3. Security Analysis Engine
+
+The security analysis engine performs rule-based assessments using architecture metadata.
+
+Current checks include:
+
+* Public-facing service exposure
+* Potential Denial-of-Service risk
+* External dependency risk
+* Integration exposure concerns
+
+Security findings are incorporated into the final report.
+
+---
+
+### 4. Reporting Engine
+
+The reporting engine aggregates outputs from all analysis stages and produces:
+
+* Resilience score
+* Worst-case failure scenario
+* Failure analysis results
+* Security findings
+
+Generated artifacts include:
+
+* report.json
+* report.md
+* report.pdf
+* architecture_graph.png
+
+---
+
+### 5. Remediation Engine
+
+The remediation engine generates prioritized recommendations based on:
+
+* Failure scenarios
+* Security findings
+* Architecture weaknesses
+
+Recommendations include:
+
+* Resilience improvements
+* Security enhancements
+* Architectural best practices
+
+---
+
+### 6. AI Summary Engine
+
+The AI Summary Engine transforms technical analysis into executive-level insights.
+
+When configured, FortifyAI uses:
+
+**Gemini 2.5 Flash Lite**
+
+to generate:
+
+* Executive summaries
+* Architecture observations
+* Additional remediation suggestions
+
+If no API key is available, the platform falls back to heuristic summaries.
+
+---
+
+## 🧠 Hybrid Reasoning Approach
+
+A core design principle of FortifyAI is the separation of deterministic analysis from LLM-powered assistance.
+
+### Deterministic Components
+
+* Graph construction
+* Failure propagation
+* Severity scoring
+* Security rule evaluation
+* Resilience calculations
+
+### LLM-Assisted Components
+
+* Executive summaries
+* Additional remediation insights
+* Human-readable reporting
+
+This design improves:
+
+* Explainability
+* Reliability
+* Reproducibility
+
+while still leveraging modern AI capabilities where they provide the most value.
+
+---
+
+## 📁 Generated Artifacts
 
 Each analysis run produces:
 
-```
+```text
 runs/run_003/
 ├─ architecture.yaml
 ├─ report.json
@@ -148,86 +230,85 @@ runs/run_003/
 └─ agent_context.json
 ```
 
-> These folders are auto-generated and excluded from Git to keep the repository clean.
+All generated run folders are excluded from version control.
 
 ---
 
 ## 🖼 UI Screenshots
 
-All screenshots are available at:
+Screenshots are available in:
 
-```
+```text
 docs/screenshots/
 ```
 
-### 🌙 Dark Mode
+### Dark Mode
 
-![Dark Dashboard](docs/screenshots/dark_mode_after_file_upload.png)
-![Dark Failure Scenarios](docs/screenshots/dark_failure_scenarios.png)
-![Dark Recommendations](docs/screenshots/dark_recommendation_suggestions.png)
-![Dark AI Summary](docs/screenshots/dark_ai_insights_summary1.png)
+* Dashboard
+* Failure Scenarios
+* Recommendations
+* AI Summary
 
-### ☀️ Light Mode
+### Light Mode
 
-![Light Dashboard](docs/screenshots/light_page_after_file_upload.png)
-![Light Failure Scenarios](docs/screenshots/light_failure_scenarios.png)
-![Light Recommendations](docs/screenshots/light_recommendation_suggestions.png)
-![Light AI Summary](docs/screenshots/light_ai_insights_summary1.png)
+* Dashboard
+* Failure Scenarios
+* Recommendations
+* AI Summary
+
 ---
 
-## 🧰 Tech Stack
+## 🧰 Technology Stack
 
 ### Backend
 
 * Python 3.12+
 * FastAPI
-* Uvicorn
 * Graphviz
 * ReportLab
+* Uvicorn
 * python-dotenv
-* google-generativeai (Gemini 2.5 Flash Lite)
+* Google Generative AI SDK
 
 ### Frontend
 
-* React (Vite)
-* Custom CSS (no UI framework)
-* Light/Dark mode toggle
-* Responsive design
+* React
+* Vite
+* Custom CSS
+* Light/Dark Theme Support
 
-Deployment Platform:
+### Deployment
 
-* Render (Frontend + Backend services)
+* Render
 
 ---
 
 ## 📂 Project Structure
 
-```
+```text
 Fortify-AI/
-├─ api.py
-├─ main.py
-├─ architecture_model.py
-├─ orchestrator.py
-├─ failure_simulation.py
-├─ security_analysis.py
-├─ remediation_agent.py
-├─ ai_summary_agent.py
-├─ llm_client.py
-├─ agent_context.py
-├─ report_storage.py
-├─ report_generator.py
-├─ graph_utils.py
-├─ run_utils.py
-├─ requirements.txt
-├─ example_architecture.yaml
-├─ cleanup_empty_runs.py
-├─ frontend/
-└─ runs/ (auto-generated)
+├── api.py
+├── main.py
+├── architecture_model.py
+├── orchestrator.py
+├── failure_simulation.py
+├── security_analysis.py
+├── remediation_agent.py
+├── ai_summary_agent.py
+├── llm_client.py
+├── agent_context.py
+├── report_storage.py
+├── report_generator.py
+├── graph_utils.py
+├── run_utils.py
+├── requirements.txt
+├── frontend/
+└── runs/
 ```
 
 ---
 
-## ⚙️ Setup Instructions
+## ⚙ Setup
 
 ### Backend
 
@@ -236,7 +317,7 @@ pip install -r requirements.txt
 uvicorn api:app --reload
 ```
 
-Optional Gemini setup:
+Optional Gemini configuration:
 
 ```bash
 GEMINI_API_KEY=your_api_key_here
@@ -254,48 +335,51 @@ npm run dev
 
 ## 🔐 Security Notes
 
-* No secrets or API keys are stored in the repository.
-* Environment variables are used for sensitive credentials.
-* All analysis is stateless and file-based.
+* No API keys are stored in the repository.
+* Environment variables are used for secrets.
+* Analysis is stateless and file-driven.
+* Generated reports are isolated per run.
 
 ---
 
 ## 🎓 Academic Context
 
-This project was developed as part of an academic AI agents capstone to demonstrate:
+FortifyAI was developed as an exploration of:
 
-* Multi-agent system orchestration
-* Hybrid reasoning (deterministic + LLM)
-* Resilience engineering simulations
-* AI-powered decision support systems
+* Architecture resilience analysis
+* Failure propagation modeling
+* Graph-based system analysis
+* AI-assisted decision support
+* Hybrid deterministic and LLM-powered reasoning
 
-Suitable for:
-
-* SRE / DevOps tooling demonstrations
-* Cloud resilience research
-* Agent-based system architecture studies
-
----
-
-## 🧹 Utility Script
-
-`cleanup_empty_runs.py`
-Removes incomplete or empty run folders from the `runs/` directory during development testing.
+The project demonstrates how traditional software engineering techniques and modern AI systems can be combined to build explainable architecture analysis tools.
 
 ---
 
 ## 📜 License
 
-MIT License – see the LICENSE file for details.
+MIT License
+
+See LICENSE for details.
 
 ---
 
-## ✅ Project Status
+## Project Status
 
-* ✅ Fully functional multi-agent backend
-* ✅ Deployed live frontend & backend
-* ✅ Gemini AI integration
-* ✅ Clean structured outputs
-* ✅ Production-grade architecture
+✅ Live Frontend & Backend
 
-FortifyAI is ready for academic submission, demonstration, and further extension.
+✅ Architecture Analysis Pipeline
+
+✅ Failure Simulation Engine
+
+✅ Security Assessment Engine
+
+✅ PDF & Markdown Reporting
+
+✅ Gemini Integration
+
+✅ Graph Visualization
+
+✅ Hybrid Deterministic + AI Reasoning
+
+FortifyAI is actively maintained and serves as a foundation for future work in architecture resilience analysis, AI-assisted operations tooling, and intelligent system design.
